@@ -85,12 +85,12 @@ block content
                         each skill in category[1]
                           li.skills-row__item
                             .skill
-                              svg(viewBox="0 0 100 100").skill__circle-shape
-                                circle(cx="50" cy="50" r="40").skill__circle.skill__circle_under
-                                circle(cx="50" cy="50" r="40" stroke="url(#gradient)" transform='rotate(180 50 50)').skill__circle.skill__circle_above
+                              svg(viewBox="0 0 144 144").skill__circle-shape
+                                circle(cx="69" cy="69" r="63").skill__circle.skill__circle_under
+                                circle(cx="69" cy="69" r="63" stroke="url(#gradient)" transform='rotate(180 69 69)').skill__circle.skill__circle_above
                                 linearGradient(id="gradient" x1="0%" y1="0%" x2="100%" y2="0")
-                                  stop(offset="0%" stop-color="#d0731b")
-                                  stop(offset="100%" stop-color="#DC9322")
+                                  stop(offset="0%" stop-color="#dc9322")
+                                  stop(offset="100%" stop-color="#d0731b")
                               .skill__circle-text #{skill}
     section.works
       .container.works__container
@@ -101,12 +101,12 @@ block content
               .works-slider__pics-content
                 +image('content/slider-1-big.jpg', 'works-slider__fullpic')
                 .works-slider__buttons
-                  a(href="#").works-slider__btn.works-slider__btn_next
-                  a(href="#").works-slider__btn.works-slider__btn_prev
+                  button.works-slider__btn.works-slider__btn_next
+                  button.works-slider__btn.works-slider__btn_prev
                 ul.works-slider__thumbs
-                  - for (var i = 4; i > 0; i--)
+                  - for (var i = 1; i < 5; i++)
                     li.works-slider__thumb-item(class=`${i === 1 ? 'active' : ''}`)
-                      a(href="").works-slider__thumb-link
+                      button.works-slider__thumb-btn
                         +image(`content/slider-${i}.jpg`, 'works-slider__thumb')
             .works-slider__data
               ul.works-slider__tags

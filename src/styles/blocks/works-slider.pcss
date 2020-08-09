@@ -13,7 +13,8 @@
   width: 66%;
   position: relative;
   z-index: 10;
-  height: 340px;
+  height: 549px;
+  margin-right: 156px;
 
   /* @include tablets {
     margin-bottom: 105px;
@@ -24,13 +25,13 @@
     content: attr(data-slide);
     position: absolute;
     top: 50%;
-    transform: translateY(-60%);
-    line-height: 1;
     left: 100%;
+    transform: translateY(-60%);
+    margin-left: -8%;
     font-size: 400px;
     font-weight: 800;
-    margin-left: -8%;
-    color: rgba($text-color, .05);
+    line-height: 1;
+    color: #e6e6e6;
 
     /* @include desktop {
       top: 0;
@@ -49,10 +50,10 @@
 }
 
 .works-slider__pics-content {
-  z-index: 10;
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 10;
   width: 100%;
   height: 100%; 
 }
@@ -74,21 +75,23 @@
 .works-slider__thumbs {
   position: absolute;
   right: 0;
-  bottom: 0;
-  width: 178px;
+  bottom: 58px;
+  display: flex;
+  width: 717px;
 
-
-  @include phones {
+  /* @include phones {
     display: none;
-  }
+  } */
 }
 
 .works-slider__thumb-item {
-  height: 100px;
+  height: 103px;
   transition: .2s;
+
   &.active,
   &:hover {
-    outline: 3px solid #f29400;
+    z-index: 15;
+    outline: 3px solid #dc9322;
   }
 }
 
@@ -100,33 +103,33 @@
 
 .works-slider__buttons {
   position: absolute;
-  top: 100%;
-  right: 0;
-  display: flex;
+  left: 100%;
+  bottom: 58px;
+  /* display: flex; */
 
-  @include phones {
+  /* @include phones {
     top: initial;
     bottom: 0;
-  }
+  } */
 }
 
 .works-slider__btn {
-  width: 50px;
-  height: 50px;
-  background: #2d3c4e;
-  display: block;
   position: relative;
+  display: block;
+  width: 50px;
+  height: 51.5px;
+  background: #333c49;
 
   &:before {
     content: "";
-    background: svg-load('arrow-down.svg', fill=#fff, width=100%, height=100%) center center no-repeat;
-    display: block;
-    width: 8px;
-    height: 10px;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-90deg);
+    transform: translate(-50%, -50%) rotate(180deg);
+    display: block;
+    width: 10px;
+    height: 17px;
+    background: svg-load('arrow-down.svg', fill=#fff, width=100%, height=100%) center center no-repeat;
     transition: opacity .3s, margin-top .3s;
     opacity: .3;
   }
@@ -139,7 +142,7 @@
 
   &_prev {
     &:before {
-      transform: translate(-50%, -50%) rotate(-270deg);
+      transform: translate(-50%, -50%);
     }
 
     &:active {
@@ -177,7 +180,7 @@
   } */
 }
 
-.works-slider__thumb-link {
+.works-slider__thumb-btn {
   display: block;
   height: 100%;
 }
@@ -201,8 +204,8 @@
 
 .works-slider__desc {
   font-weight: 600;
-  color: rgba($text-color, .7);
-  line-height: 1.8;
+  color: rgba(51, 60, 73, 0.8);
+  line-height: 30px;
 }
 
 .works-slider__desc {
