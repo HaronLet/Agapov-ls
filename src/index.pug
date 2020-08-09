@@ -130,19 +130,24 @@ block content
               .reviews__btn.reviews__btn_prev
               .reviews__btn.reviews__btn_next
           ul.reviews__content
-            - for (var i = 0; i < 2; i++)
+            - 
+              var quoteinfo = [
+                ['1', 'Этот парень проходил обучение веб-разработке не где-то, а в Loftschool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!', 'Ковальчук Дмитрий', 'Основатель Loftschool'],
+                ['2', 'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах', 'Владимир Сабанцев', 'Преподаватель']
+              ];
+            each item in quoteinfo
               li.reviews__content-item
                 .quote
                   .quote__text
-                    p Этот парень проходил обучение веб-разработке не где-то, а в Loftschool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
+                    p #{item[1]}
                   .quote__user
                     .user-min
                       .user-min__avatar
                         .user-min__pic-wrapper
-                          +image('content/user.jpg', 'user-min__avatar-pic')
+                          +image(`content/avatar-${item[0]}.jpg`, 'user-min__avatar-pic')
                       .user-min__info
-                        .user-min__name Ковальчук Дмитрий
-                        .user-min__occ Основатель Loftschool
+                        .user-min__name #{item[2]}
+                        .user-min__occ #{item[3]}
   footer.footer
     .container.footer__container
       .footer__copyright

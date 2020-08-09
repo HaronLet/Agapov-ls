@@ -5,4 +5,11 @@
   line-height: 1;
   outline: none;
   padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  object-fit: contain;
+  object-position: top center;
 }
