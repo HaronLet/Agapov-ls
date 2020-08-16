@@ -1,0 +1,17 @@
+.iconed-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: $links-color;
+  text-decoration: none;
+
+  &:before {
+    content: "";
+    display: block;
+    width: 23px;
+    height: 23px;
+    margin-right: 20px;
+    background: svg-load('link.svg', fill=$links-color) center center / contain no-repeat;
+  }
+}

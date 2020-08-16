@@ -1,0 +1,38 @@
+.socials {
+  display: flex;
+
+  &--round-borders {
+    .socials__item {
+      width: 50px;
+      height: 50px;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      margin-right: 19px;
+    }
+    .socials__link {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .socials__icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+  }
+}
+
+.socials__item:not(:last-child) {
+  margin-right: 40px;
+}
+
+.socials__icon {
+  width: 25px;
+  height: 25px;
+  fill: rgba($text-color, .3);
+}

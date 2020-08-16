@@ -1,0 +1,99 @@
+.values {
+  position: relative;
+  margin-bottom: 114px;
+  padding-top: 144px;
+  background: url('~images/bg/bg.jpg') center center / cover no-repeat;
+
+  &:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -7%;
+    display: block;
+    width: 38%;
+    height: 79%;
+    background: url('~images/decor/hands.png') left bottom / contain no-repeat;
+
+  /* @include phones {
+    margin-bottom: 75px;
+  } */
+}
+
+.values__container {
+  position: relative;
+
+  /* @include tablets {
+    padding-bottom: 350px;
+  } */
+
+    /* @include tablets {
+      bottom: 0;
+      left: 50%;
+      height: 300px;
+      transform: translateX(-50%);
+      background-position: center center;
+    }
+
+    @include phones {
+      width: 100%;
+    } */
+  }
+}
+
+.values__wrapper {
+  position: relative;
+}
+
+.values__title {
+  margin-bottom: 82px;
+  display: flex;
+  justify-content: center;
+}
+
+.values__title-container {
+  width: 38%;
+  margin-left: 6%;
+
+  /* @include desktop {
+    width: 42%;
+    margin-left: 0;
+  }
+  @include tablets {
+    width: 68%;
+    text-align: center;
+  }
+  @include phones {
+    width: 100%;
+    margin-left: 0;
+    text-align: left;
+  } */
+}
+
+.values__title-text {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 55px;
+}
+
+.values__content {
+  color: rgba($text-color, .8);
+  font-weight: 600;
+  line-height: 1.8;
+}
+
+.values__widget {
+  display: flex;
+  justify-content: flex-end;
+
+  /* @include tablets {
+    justify-content: center;
+  } */
+}
+
+.values__widget-container {
+  width: 66%;
+
+  /* @include tablets {
+    width: 95%;
+  } */
+}
