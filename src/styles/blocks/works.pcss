@@ -4,10 +4,6 @@
 
 .works__content {
   padding-bottom: 60px;
-  
-  @include phones {
-    padding-bottom: 0px;
-  }
 }
 
 .works__container {
@@ -18,6 +14,10 @@
 }
 
 .works__section-title {
+
+  @include tablets {
+    font-size: 30px;
+  }
   
   @include phones {
     text-align: center;

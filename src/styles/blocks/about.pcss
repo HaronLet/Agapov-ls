@@ -4,22 +4,24 @@
   justify-content: center;
   align-items: center;
   min-height: 824px;
+
+  @include tablets {
+    padding-top: 270px;
+    min-height: 466px;
+  }
+
+  @include phones {
+    padding-top: 30px;
+  }
 }
 
 .about__columns {
   display: flex;
   justify-content: center;
-  /* padding: 169px 17% 268px; */
 
-  /* @include desktop {
-    padding-right: 2%;
-    padding-left: 2%;
-  }
   @include phones {
     flex-direction: column;
-    padding-top: 114px;
-    padding-bottom: 114px;
-  } */
+  }
 }
 
 .about__user-text {
@@ -32,6 +34,7 @@
   color: rgba($text-color, .5);
 
   @include phones {
+    flex-basis: 474px;
     width: 100%;
   }
 }
@@ -44,11 +47,19 @@
     width: 100%;
     margin-bottom: 50px;
   }
+
+  @include phones {
+    margin-bottom: 30px;
+  }
 }
 
 .about__desc {
   margin-bottom: 20px;
   font-weight: 600;
+
+  @include tablets {
+    font-size: 14px;
+  }
 }
 
 .about__title {
@@ -56,6 +67,10 @@
   font-size: 36px;
   font-weight: 700;
   color: $text-color;
+
+  @include tablets {
+    font-size: 30px;
+  }
 }
 
 .about__ps {
@@ -71,5 +86,12 @@
     font-size: 48px;
     line-height: 1;
     color: rgba(219, 2, 0, 0.5);
+  }
+}
+
+.about__text-info {
+
+  @include phones {
+    font-size: 14px;
   }
 }

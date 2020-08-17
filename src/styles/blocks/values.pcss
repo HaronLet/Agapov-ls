@@ -2,8 +2,17 @@
   position: relative;
   margin-bottom: 114px;
   padding-top: 144px;
+  padding-bottom: 146px;
   background: url('~images/bg/bg.jpg') center center / cover no-repeat;
-
+  
+  @include tablets {
+    padding-bottom: 300px;
+  }
+  
+  @include phones {
+    padding-bottom: 236px;
+  }
+  
   &:before {
     content: "";
     position: absolute;
@@ -13,24 +22,26 @@
     width: 38%;
     height: 79%;
     background: url('~images/decor/hands.png') left bottom / contain no-repeat;
-  }
-  
-  @include phones {
-    margin-bottom: 75px;
+
+    @include desktop {
+      left: -4%;
+    }
+    
+    @include tablets {
+      transform: rotate(-90deg);
+      bottom: -300px;
+    }
+
+    @include phones {
+      bottom: -447px;
+      left: -360px;
+      width: 200px;    
+    }
   }
 }
 
 .values__container {
   position: relative;
-
-  @include tablets {
-    bottom: 0;
-    left: 50%;
-    height: 300px;
-    transform: translateX(-50%);
-    padding-bottom: 350px;
-    background-position: center center;
-  }
 
   @include phones {
     width: 100%;
@@ -45,6 +56,10 @@
   margin-bottom: 82px;
   display: flex;
   justify-content: center;
+
+  @include tablets {
+    margin-bottom: 30px;
+  }
 }
 
 .values__title-container {
@@ -57,6 +72,9 @@
   }
 
   @include tablets {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 68%;
     text-align: center;
   }
@@ -72,25 +90,48 @@
   font-size: 30px;
   font-weight: 700;
   margin-bottom: 55px;
+
+  @include tablets {
+    width: 70%;
+  }
+
+  @include phones {
+    font-size: 24px;
+  }
 }
 
 .values__content {
   color: rgba($text-color, .8);
   font-weight: 600;
   line-height: 1.8;
+
+  @include phones {
+    font-size: 14px;
+    padding: 0 30px;
+  }
 }
 
 .values__widget {
   display: flex;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
+  padding-left: 40%;
+
+  @include desktop {
+    padding-left: 30%;
+  }
 
   @include tablets {
     justify-content: center;
+    padding-left: 0;
   }
 }
 
 .values__widget-container {
-  width: 66%;
+  width: 57%;
+
+  @include desktop {
+    width: 66%;
+  }
 
   @include tablets {
     width: 95%;
