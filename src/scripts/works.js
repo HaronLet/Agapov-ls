@@ -35,7 +35,7 @@ const display = {
 };
 
 new Vue({
-  el: "#slider-component",
+  el: "#work-slider-component",
   template: "#slider-container",
   components: {
     display,
