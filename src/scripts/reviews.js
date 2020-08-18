@@ -14,7 +14,18 @@ new Vue({
     return {
       reviews: [],
       sliderOptions: {
-        slidesPerView: 2
+        breakpoints: {
+          320: {
+            slidesPerView: 1
+          },
+          481: {
+            slidesPerView: 2,
+          },
+          769: {
+            slidesPerView: 2,
+            spaceBetween: 10
+          }
+        }
       }
     };
   },
