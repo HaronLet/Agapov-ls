@@ -27,10 +27,12 @@ script(type="text/x-template")#slider-btns
     button(
       type="button"
       @click="$emit('slide', 'next')"
+      ref="workNextBtn"
     ).works-slider__btn.works-slider__btn_next
     button(
       type="button"
       @click="$emit('slide', 'prev')"
+      ref="workPrevBtn"
     ).works-slider__btn.works-slider__btn_prev
 
 script(type="text/x-template")#slider-thumbs

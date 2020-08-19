@@ -7,7 +7,7 @@ new Vue({
   el: "#review-slider-component",
   template: "#reviews",
   components: {
-    Swiper, 
+    Swiper,
     SwiperSlide
   },
   data() {
@@ -37,15 +37,35 @@ new Vue({
         return item;
       });
     },
+    inactive(ref, slider) {
+      if (slider.isEnd) {
+        ref.nextBtn.style.opacity = .2;
+        ref.nextBtn.style.cursor = 'initial';
+      } else {
+        ref.nextBtn.style.opacity = 1;
+        ref.nextBtn.style.cursor = 'pointer';
+      }
+      if (slider.isBeginning) {
+        ref.prevBtn.style.opacity = .2;
+        ref.prevBtn.style.cursor = 'initial';
+      } else {
+        ref.prevBtn.style.opacity = 1;
+        ref.prevBtn.style.cursor = 'pointer';
+      }
+    },
     slide(direction) {
       const slider = this.$refs["slider"].$swiper;
 
+      var ref = this.$refs;
+        
       switch (direction) {
         case "next":
-          slider.slideNext()
+          slider.slideNext();
+          this.inactive(ref, slider);
           break;
         case "prev":
-          slider.slidePrev()
+          slider.slidePrev();
+          this.inactive(ref, slider);
           break;
       }
     }
@@ -53,5 +73,11 @@ new Vue({
   created() {
     const data = require("../data/reviews.json");
     this.reviews = this.requireImagesToArray(data);
+  },
+  mounted() {
+    var ref = this.$refs;
+    
+    ref.prevBtn.style.opacity = .2;
+    ref.prevBtn.style.cursor = 'initial';
   }
 });
