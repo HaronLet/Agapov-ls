@@ -2,25 +2,27 @@ extends ./main.layout.pug
 
 block content
   .welcome-section
-    section.fullscreen-section.hero
+    section.hero
       .container.hero__container
         header.header
           .header__logo
             a.logo(href="") ВА
-          .header__menu 
-            nav.menu
-              ul.menu__list
-                - var menuLinks = ["Обо мне", "Навыки", "Работы", "Отзывы"];
-                each item in menuLinks 
-                  li.menu__item
-                    a(href="#").menu__link #{item}
-          .header__buttons
-            ul.socials
-              - var socials = ['insta', 'vk', 'github', 'envelope'];
-              each item in socials
-                li.socials__item
-                  a(href=`${item === 'envelope' ? 'mailto:muhaxt@yandex.ru' : '#'}`).socials__link
-                    +icon(item, 'socials__icon')
+          .header__menu-container
+            .header__menu 
+              nav.menu
+                ul.menu__list
+                  - var menuLinks = ["Обо мне", "Навыки", "Работы", "Отзывы"];
+                  each item in menuLinks 
+                    li.menu__item
+                      a(href="#").menu__link #{item}
+            .header__buttons
+              ul.socials
+                - var socials = ['insta', 'vk', 'github', 'envelope'];
+                each item in socials
+                  li.socials__item
+                    a(href=`${item === 'envelope' ? 'mailto:muhaxt@yandex.ru' : '#'}`).socials__link
+                      +icon(item, 'socials__icon')
+            button.header__menu-button
 
         .hero__content
           .userinfo
@@ -62,20 +64,18 @@ block content
   .middle-section
     section.values
       .container.values__container
-        .values__wrapper
-          .values__title
-            .values__title-container
-              .values__title-text Чем я могу быть полезен вам
-              .values__content
-                p Этот сайт я сделал в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!
-          .values__widget
-            #skills-component
+        .values__title
+          .values__title-container
+            .values__title-text Чем я могу быть полезен вам
+            .values__content
+              p Этот сайт я сделал в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!
+        .values__widget
+          #skills-component
     
     section.works
       .container.works__container
         .section-title.works__section-title Мои работы
-        .works__content
-          #work-slider-component
+        #work-slider-component
 
   section.contacts
     .container.contacts__container

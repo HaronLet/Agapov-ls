@@ -19,7 +19,7 @@ new Vue({
             slidesPerView: 1
           },
           481: {
-            slidesPerView: 2,
+            slidesPerView: 1,
           },
           769: {
             slidesPerView: 2,

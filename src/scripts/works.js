@@ -2,10 +2,6 @@ import Vue from "vue";
 
 const btns = {
   template: "#slider-btns"
-  // created() {
-  //   this.$emit('refs', this.$refs);
-  //   console.log(this.$emit('refs', this.$refs));
-  // }
 };
 
 const thumbs = {
@@ -77,6 +73,9 @@ new Vue({
         case "prev":
           this.currentIndex--;
           break;
+        default:
+          this.currentIndex = direction;
+          break;
       }
     },
     active(value) {
@@ -88,33 +87,10 @@ new Vue({
       if (value > worksNumber) {
         this.currentIndex = worksNumber;
       }
-      // this.$on('refs')
-      // if (slider.isEnd) {
-      //   ref.nextBtn.style.opacity = .2;
-      //   ref.nextBtn.style.cursor = 'initial';
-      // } else {
-      //   ref.nextBtn.style.opacity = 1;
-      //   ref.nextBtn.style.cursor = 'pointer';
-      // }
-      // if (slider.isBeginning) {
-      //   ref.prevBtn.style.opacity = .2;
-      //   ref.prevBtn.style.cursor = 'initial';
-      // } else {
-      //   ref.prevBtn.style.opacity = 1;
-      //   ref.prevBtn.style.cursor = 'pointer';
-      // }
     }
   },
   created() {
     const data = require("../data/works.json");
     this.works = this.requireImagesToArray(data);
-    // console.log(this.$children);
-    // console.log(this.$on('refs'));
   }
-  // mounted() {
-  //   var ref = this.$refs;
-    
-  //   ref.prevBtn.style.opacity = .2;
-  //   ref.prevBtn.style.cursor = 'initial';
-  // }
 });

@@ -20,6 +20,7 @@ script(type="text/x-template")#slider-display
       thumbs(
         :works="works"
         :currentWork="currentWork"
+        @slide="$emit('slide', $event)"
       )
 
 script(type="text/x-template")#slider-btns
@@ -38,10 +39,10 @@ script(type="text/x-template")#slider-btns
 script(type="text/x-template")#slider-thumbs
   ul.works-slider__thumbs
     li.works-slider__thumb-item(
-      v-for="slide in works" :key="slide.id"
+      v-for="(slide, index) in works" :key="slide.id"
       :class="{active: currentWork.id === slide.id}"
       )
-      button.works-slider__thumb-btn
+      button(@click="$emit('slide', index)").works-slider__thumb-btn
         img(:src="slide.thumbs").works-slider__thumb
 
 script(type="text/x-template")#slider-info
@@ -53,7 +54,7 @@ script(type="text/x-template")#slider-info
     .works-slider__desc
       p {{currentWork.desc}}
     .works-slider__link 
-      a(:href="currentWork.link").iconed-link Посмотреть сайт
+      a(:href="currentWork.link" target="_blank").iconed-link Посмотреть сайт
 
 script(type="text/x-template")#slider-tags
   ul.works-slider__tags

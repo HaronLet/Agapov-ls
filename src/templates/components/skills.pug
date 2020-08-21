@@ -1,10 +1,9 @@
 script(type="text/x-template")#skills-list
-  .values__widget-container
-    ul.skills
-      li.skills__item(v-for="category in skills" :key="category.id")
-        skills-row(
-          :category="category"
-        )
+  ul.skills
+    li.skills__item(v-for="category in skills" :key="category.id")
+      skills-row(
+        :category="category"
+      )
 
 script(type="text/x-template")#skills-row
   .skills-row
@@ -17,9 +16,9 @@ script(type="text/x-template")#skills-row
 
 script(type="text/x-template")#skills-item
   .skill
-    svg(viewBox="0 0 144 144").skill__circle-shape
-      circle(cx="69" cy="69" r="63").skill__circle.skill__circle_under
-      circle(cx="69" cy="69" r="63" ref="colored-circle" stroke="url(#gradient)" transform='rotate(180 69 69)').skill__circle.skill__circle_above
+    svg(viewBox="0 0 122 122").skill__circle-shape
+      circle(cx="58" cy="58" r="52").skill__circle.skill__circle_under
+      circle(cx="58" cy="58" r="52" ref="colored-circle" stroke="url(#gradient)" transform='rotate(180 58 58)').skill__circle.skill__circle_above
       linearGradient(id="gradient" x1="0%" y1="0%" x2="100%" y2="0")
         stop(offset="0%" stop-color="#dc9322")
         stop(offset="100%" stop-color="#d0731b")

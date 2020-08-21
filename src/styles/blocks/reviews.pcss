@@ -1,3 +1,15 @@
+.reviews {
+  max-width: 80%;
+  
+  @include desktop {
+    max-width: 95%;
+  }
+  
+  @include tablets {
+    max-width: 100%;
+  }
+}
+
 .reviews__header {
   display: flex;
   align-items: center;
@@ -16,11 +28,8 @@
 
 .reviews__title.section-title {
   margin-bottom: 0;
-  margin-right: 10%;
+  margin-right: 116px;
 
-  @include desktop {
-    margin-right: 18%;
-  }
 
   @include tablets {
     margin-right: 5%;

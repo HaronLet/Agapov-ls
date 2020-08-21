@@ -1,5 +1,6 @@
 .values {
   position: relative;
+  overflow: hidden;
   margin-bottom: 114px;
   padding-top: 144px;
   padding-bottom: 146px;
@@ -17,10 +18,14 @@
     content: "";
     position: absolute;
     left: 0;
-    bottom: -7%;
+    bottom: -91px;
     display: block;
-    width: 38%;
-    height: 79%;
+    max-width: 662px;
+    max-height: 983px;
+    width: 37vw;
+    height: 55vw;
+    min-width: 337px;
+    min-height: 486px;
     background: url('~images/decor/hands.png') left bottom / contain no-repeat;
 
     @include desktop {
@@ -28,14 +33,15 @@
     }
     
     @include tablets {
-      transform: rotate(-90deg);
-      bottom: -300px;
+      left: 50%;
+      bottom: -75px;
+      transform: translate(-50%, 0) rotate(-90deg);
     }
 
     @include phones {
-      bottom: -447px;
-      left: -360px;
-      width: 200px;    
+      bottom: -45px;
+      min-width: 235px;
+      min-height: 320px;
     }
   }
 }
@@ -46,10 +52,6 @@
   @include phones {
     width: 100%;
   }
-}
-
-.values__wrapper {
-  position: relative;
 }
 
 .values__title {
@@ -63,19 +65,13 @@
 }
 
 .values__title-container {
-  width: 38%;
-  margin-left: 6%;
-
-  @include desktop {
-    width: 42%;
-    margin-left: 0;
-  }
+  width: 600px;
 
   @include tablets {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 68%;
+    width: 480px;
     text-align: center;
   }
   
@@ -113,27 +109,9 @@
 
 .values__widget {
   display: flex;
-  /* justify-content: flex-end; */
-  padding-left: 40%;
-
-  @include desktop {
-    padding-left: 30%;
-  }
+  justify-content: flex-end;
 
   @include tablets {
     justify-content: center;
-    padding-left: 0;
-  }
-}
-
-.values__widget-container {
-  width: 57%;
-
-  @include desktop {
-    width: 66%;
-  }
-
-  @include tablets {
-    width: 95%;
   }
 }

@@ -1,10 +1,21 @@
 .scroll-down__btn {
-  display: inline-block;
   display: flex;
   align-items: center;
   font-size: 18px;
   font-weight: 600;
   text-decoration: none;
+
+  @include tablets {
+    display: none;
+  }
+
+  &:hover {
+    color: rgba($text-color, .5);
+
+    &:after {
+      background: svg-load('scroll.svg', fill=rgba($text-color, .5), width=100%, height=100%) center center no-repeat;
+    }
+  }
 
   &:after {
     content: "";

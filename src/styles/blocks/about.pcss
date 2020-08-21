@@ -1,3 +1,16 @@
+.about {
+  overflow: hidden;
+
+  @include tablets {
+    background: url('~images/bg/about-bg.jpg') center center no-repeat;
+    background-size: auto 200vh;
+  }
+
+  @include phones {
+    background-size: auto 200vh;
+  }
+}
+
 .about .container {
   display: flex;
   flex-direction: column;
@@ -6,8 +19,8 @@
   min-height: 824px;
 
   @include tablets {
-    padding-top: 270px;
-    min-height: 466px;
+    padding-top: 30px;
+    min-height: 460px;
   }
 
   @include phones {
@@ -32,10 +45,18 @@
   width: 56%;
   padding-left: 56px;
   color: rgba($text-color, .5);
+  
+  @include phones {
+    flex-basis: auto;
+    width: 100%;
+    padding-left: 28px;
+  }
+}
+
+.about__main-text-content {
 
   @include phones {
-    flex-basis: 474px;
-    width: 100%;
+    margin-bottom: 59px;
   }
 }
 
@@ -86,6 +107,10 @@
     font-size: 48px;
     line-height: 1;
     color: rgba(219, 2, 0, 0.5);
+
+    @include phones {
+      left: -12vw;
+    }
   }
 }
 
