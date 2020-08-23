@@ -4,17 +4,103 @@
   align-items: center;
 }
 
+.header__menu-container {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include tablets {
+    justify-content: flex-end;
+  }
+}
+
+.header__menu-container--active {
+  position: absolute;
+  top: 0;
+  right: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 320px;
+  height: 100vh;
+  padding: 67px 42px 67px 51px;
+  background: #fff;
+  color: #333c49;
+
+  & .header__menu-button {
+    order: -1;
+    align-self: flex-end;
+  }
+
+  & .header__menu {
+    display: flex;
+    margin-top: 150px;
+    
+    @include phones {
+      margin-top: 50px;
+    }
+  }
+
+  & .menu__list {
+    flex-direction: column;
+    margin-bottom: 95px;
+  }
+
+  & .menu__item:not(:last-child) {
+    margin-bottom: 23px;
+  }
+
+  & .header__buttons {
+    align-self: flex-start;
+
+    @include phones {
+      display: flex;
+    }
+  }
+
+  & .header__menu-button {
+      background: svg-load('close.svg', fill=#333c49, width=100%, height=100%) center center no-repeat;
+  }
+
+  & .socials__icon {
+    fill: #333c49;
+    
+    &:hover {
+      fill: rgba(#333c49, .5);
+    }
+  }
+}
+
 .header__menu {
   width: 55%;
 
-  /* @include tablets {
+  @include tablets {
     display: none;
-  } */
+  }
 }
 
 .header__buttons {
   align-self: flex-end;
-  /* @include phones {
+  display: flex;
+  justify-content: flex-end;
+  
+  @include tablets {
+    flex: 1;
+    margin-right: 10vw;
+  }
+
+  @include phones {
     display: none;
-  } */
+  }
+}
+
+.header__menu-button {
+  display: none;
+  width: 35px;
+  height: 25px;
+  
+  @include tablets {
+    display: block;
+    background: svg-load('menu.svg', fill=$text-color, width=100%, height=100%) center center no-repeat;
+  }
 }

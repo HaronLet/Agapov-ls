@@ -1,6 +1,16 @@
 .hero {
   position: relative;
+  height: 100vh;
+  min-height: 650px;
   padding-top: 54px;
+  
+  @include tablets {
+    min-height: auto;
+  }
+  
+  @include phones {
+    padding-top: 5vh;
+  }
 }
 
 .hero__container {
@@ -14,16 +24,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* padding: 0 24%; */
-
-  /* @include desktop {
-    padding: 0 10%;
-  } */
 }
 
 .hero__downbutton {
   position: absolute;
-  bottom: 4%;
+  bottom: 10vh;
   left: 0;
   right: 0;
   display: flex;

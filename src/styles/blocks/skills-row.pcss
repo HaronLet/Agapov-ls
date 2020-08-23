@@ -2,18 +2,29 @@
   margin-bottom: 26px;
   font-size: 24px;
   font-weight: 700;
+
+  @include tablets {
+    font-size: 18px;
+    text-align: center;
+  }
 }
 
 .skills-row__list {
   display: flex;
-  flex-wrap: wrap;
-  margin-left: -4%;
+  margin-left: -2.7vw;
 
-  /* @include phones {
+  @include tablets {
+    flex-wrap: wrap;
     justify-content: center;
-  } */
+  }
 }
 
 .skills-row__item {
-  margin-left: 4%;
+  display: flex;
+  justify-content: center;
+  margin-left: 2.7vw;
+
+  @include phones {
+    flex-basis: 35%;
+  }
 }
