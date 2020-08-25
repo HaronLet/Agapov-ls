@@ -12,15 +12,15 @@ export default {
   props: {
     size: {
       type: String,
-      default: "3"
+      default: "47"
     }
   },
   computed: {
     measures() {
       const size = Number(this.size);
       return {
-        width: `${size}rem`,
-        height: `${size}rem`,
+        width: `${size}px`,
+        height: `${size}px`,
       }
     }
   }
