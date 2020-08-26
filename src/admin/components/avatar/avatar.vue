@@ -12,7 +12,7 @@ export default {
   props: {
     size: {
       type: String,
-      default: "47"
+      default: "50"
     }
   },
   computed: {

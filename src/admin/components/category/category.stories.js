@@ -1,15 +1,41 @@
 import category from "./category.vue";
+import { action } from "@storybook/addon-actions";
+
+const methods = {
+  onRemove: action("onRemove"),
+  onRemoveSkill: action("onRemoveSkill"),
+  onEditSkill: action("onEditSkill")
+};
 
 export default {
   title: "category",
   components: { category }
 };
 
+const skills = [
+  {"id": 1, "title": "CSS3", "percent": 76},
+  {"id": 2, "title": "CSS3", "percent": 76},
+  {"id": 3, "title": "CSS3", "percent": 76}
+];
+
 export const defaultView = () => ({
   components: { category },
+  data() {
+    return {
+      title: "Frontend",
+      skills
+    }
+  },
   template: `
-    <category></category>
-  `
+    <category 
+      :title="title"
+      :skills="skills"
+      @remove="onRemove"
+      @remove-skill="onRemoveSkill"
+      @edit-skill="onEditSkill"
+    />
+  `,
+  methods
 });
 
 defaultView.story = {

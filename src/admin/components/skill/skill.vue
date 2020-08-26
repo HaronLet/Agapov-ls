@@ -1,23 +1,23 @@
 <template>
   <div class="skill-component" v-if="editmode === false">
-    <div class="skill-title">Git</div>
-    <div class="skill-percent">80 %</div>
+    <div class="skill-title">{{skill.title}}</div>
+    <div class="skill-percent">{{skill.percent}}</div>
     <div class="skill-buttot">
-      <icon symbol="pencil" class="skill-btn" grayscale />
-      <icon symbol="trash" class="skill-btn" grayscale />
+      <icon symbol="pencil" class="skill-btn" @click="editmode = true" grayscale />
+      <icon symbol="trash" class="skill-btn" @click="$emit('remove', skill.id)" grayscale />
     </div>
   </div>
 
   <div class="skill-component" v-else>
     <div class="skill-title">
-      <app-input noSidePaddings />
+      <app-input noSidePaddings v-model="currentSkill.title" />
     </div>
     <div class="skill-percent">
-      <app-input type="number" min="0" max="100" maxlength="3" />
+      <app-input v-model="currentSkill.percent" type="number" min="0" max="100" maxlength="3" />
     </div>
     <div class="skill-buttot">
-      <icon symbol="tick" class="skill-btn" />
-      <icon symbol="cross" class="skill-btn" />
+      <icon symbol="tick" class="skill-btn" @click="$emit('approve', currentSkill)"/>
+      <icon symbol="cross" class="skill-btn" @click="editmode = false" />
     </div>
   </div>
 </template>
@@ -27,10 +27,20 @@
   import icon from "../icon";
 
   export default {
+    props: {
+      skill: Object,
+      default: () => {},
+      required: true
+    },
     data() {
       return {
-        editmode: false
-      }
+        editmode: false,
+        currentSkill: {
+          id: 0,
+          title: this.skill.title,
+          percent: this.skill.percent
+        }
+      };
     },
     components: {
       appInput: input,
