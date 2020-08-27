@@ -27,3 +27,22 @@
 .skill-percent {
   margin-right: 30px;
 }
+
+.empty {
+  position: relative;
+  outline: 1px solid red;
+}
+
+.emptybox {
+  position: relative;
+
+  &::after {
+    content: "Заполните поле";
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    display: block;
+    font-size: 10px;
+    color: red;
+  }
+}
