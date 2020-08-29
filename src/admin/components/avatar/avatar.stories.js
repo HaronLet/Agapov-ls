@@ -11,7 +11,7 @@ export const defaultView = () => ({
   components: { avatar },
   props: {
     size: {
-      default: text("size", "3.1")
+      default: text("size", "50")
     }
   },
   template: `
