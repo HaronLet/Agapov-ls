@@ -1,66 +1,37 @@
 <template>
   <div class="app">
-    <headline title="Панель администрирования">
-      <user />
-    </headline>
-    <navigation />
-    <div class="page-content">
-      <div class="app-container">
-        <div class="app-header">
-          <div class="app-title">Блок "Обо мне"</div> 
-          <iconed-button 
-            type="iconed" 
-            v-if="emptyCatIsShow === false"
-            @click="emptyCatIsShow = true" 
-            title="Добавить группу" 
-          />
-        </div>
-        <ul class="app-skills">
-          <li class="app-item" v-if="emptyCatIsShow">
-            <category 
-              @remove="emptyCatIsShow = false"
-              empty 
-            />
-          <li 
-            class="app-item" 
-            v-for="category in categories"
-            :key="category.id"
-          >
-            <category 
-              :title="category.category"
-              :skills="category.skills"
-            />
-          </li>
-        </ul>
+    <router-view name="header" />
+    <router-view />
+    <div :class="['notify-container', {active: isTooltipShown}]">
+      <div class="notification">
+        <notification 
+          :text="tooltipText" 
+          :type="tooltipType"
+          @click="hideTooltip"
+         />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import headline from "./components/headline";
-  import user from "./components/user";
-  import navigation from "./components/navigation";
-  import button from "./components/button";
-  import category from "./components/category";
-
+  import notification from "./components/notification";
+  import { mapState, mapActions } from "vuex";
+  
   export default {
-    components: {
-      headline,
-      user,
-      navigation,
-      iconedButton: button,
-      category
+    components: { notification },
+    methods: {
+      ...mapActions({
+        hideTooltip: "tooltips/hide"
+      })
     },
-    data() {
-      return {
-        categories: [],
-        emptyCatIsShow: false
-      }
+    computed: {
+      ...mapState("tooltips", {
+        isTooltipShown: (state) => state.isShown,
+        tooltipText: (state) => state.text,
+        tooltipType: (state) => state.type,
+      }),
     },
-    created() {
-      this.categories = require("../data/skills.json");
-    }
   };
 </script>
 

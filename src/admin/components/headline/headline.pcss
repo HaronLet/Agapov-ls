@@ -1,3 +1,5 @@
+@import "../../../styles/mixins.pcss";
+
 .headline-component {
   background: #43436B;
 }
@@ -5,8 +7,19 @@
 .headline-container {
   display: flex;
   align-items: center;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 60px;
+
+  @include tablets {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+
+  @include phones {
+    padding-left: 19px;
+    padding-right: 19px;
+  }
 }
 
 .buttons {

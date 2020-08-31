@@ -1,3 +1,21 @@
+@import "../../../styles/mixins.pcss";
+
+.navigation-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 60px;
+
+  @include tablets {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+
+  @include phones {
+    padding-left: 19px;
+    padding-right: 19px;
+  }
+}
+
 .list {
   display: flex;
 }
