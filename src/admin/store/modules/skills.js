@@ -26,6 +26,6 @@ export default {
         console.log(error);
         throw new Error("Ошибка")
       }
-    }
+    },
   }
 }
