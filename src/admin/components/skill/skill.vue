@@ -94,6 +94,7 @@
       async handleClick() {
         if (await this.$validate() === false) return;
         this.$emit("approve", this.currentSkill);
+        this.$validate().reset;
       },
     }
   };
