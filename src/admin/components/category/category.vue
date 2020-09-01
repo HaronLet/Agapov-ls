@@ -54,7 +54,7 @@
     },
     data() {
       return {
-        categoryTitle: this.title,
+        categoryTitle: this.title
       }
     }
   };

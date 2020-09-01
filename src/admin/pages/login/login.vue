@@ -72,11 +72,7 @@
           localStorage.setItem("token", token);
           $axios.defaults.headers["Authorization"] = `Bearer ${token}`;
           this.$router.replace("/");
-
-          // const userData = await $axios.get("/user");
-          // console.log(userData);
         } catch (error) {
-          // console.log("error");
           this.showTooltip({
             text: error.response.data.error,
             type: "error"

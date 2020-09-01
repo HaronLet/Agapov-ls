@@ -9,7 +9,7 @@
     <div v-else class="title">
       <div class="input">
         <app-input
-          :errorMessage="validation.firstError('title')"
+          :errorMessage="validation.firstError('value')"
           :value="value"
           :errorText="errorText"
           @input="$emit('input', $event)"
@@ -37,7 +37,7 @@
   export default {
     mixins: [ValidatorMixin],
     validators: {
-      "title": (value) => {
+      "value": (value) => {
         return Validator.value(value).required("Не может быть пустым");
       },
     },
@@ -66,7 +66,8 @@
         if (this.title.trim() === this.value.trim()) {
           this.editmode = false;
         } else {
-          this.$emit("approve", this.title);
+          this.$emit("approve", this.value);
+          this.editmode = false;
         }
       },
     },
