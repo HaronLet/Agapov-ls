@@ -58,7 +58,8 @@
     },
     methods: {
       ...mapActions({
-        showTooltip: "tooltips/show"
+        showTooltip: "tooltips/show",
+        login: "user/login"
       }),
 
       async handleSubmit() {
@@ -71,7 +72,10 @@
           const token = response.data.token;
           localStorage.setItem("token", token);
           $axios.defaults.headers["Authorization"] = `Bearer ${token}`;
-          this.$router.replace("/");
+
+          const userResponse = await $axios.get("/user");
+          this.login(userResponse.data.user);
+          this.$router.replace("/about");
         } catch (error) {
           this.showTooltip({
             text: error.response.data.error,

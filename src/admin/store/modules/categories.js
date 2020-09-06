@@ -73,11 +73,9 @@ export default {
       }
     },
     async edit({commit}, catToEdit) {
-      // console.log(catToEdit);
       const title = catToEdit.category;
       try {
         const { data } = await this.$axios.post(`/categories/${catToEdit.id}`, { title });
-        // console.log(data);
         commit("EDIT_CATEGORY", data.category)
       } catch (error) {
         console.log(error);
@@ -88,7 +86,6 @@ export default {
       try {
         const { data } = await this.$axios.get('/categories/375');
         commit("SET_CATEGORIES", data);
-        // console.log(data);
       } catch (error) {
         console.log(error);
       }
