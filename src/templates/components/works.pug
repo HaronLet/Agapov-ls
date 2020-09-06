@@ -4,6 +4,7 @@ script(type="text/x-template")#slider-container
       :currentWork="currentWork"
       :works="works"
       :currentIndex="currentIndex"
+      :baseUrl="baseUrl"
       @slide="slide"
     )
     info(
@@ -13,13 +14,14 @@ script(type="text/x-template")#slider-container
 script(type="text/x-template")#slider-display
   .works-slider__pics(:data-slide="currentIndex + 1")
     .works-slider__pics-content
-      img(:src="currentWork.thumbs").works-slider__fullpic
+      img(:src="baseUrl + '/' + currentWork.photo").works-slider__fullpic
       btns(
         @slide="$emit('slide', $event)"
       )
       thumbs(
         :works="works"
         :currentWork="currentWork"
+        :baseUrl="baseUrl"
         @slide="$emit('slide', $event)"
       )
 
@@ -43,16 +45,17 @@ script(type="text/x-template")#slider-thumbs
       :class="{active: currentWork.id === slide.id}"
       )
       button(@click="$emit('slide', index)").works-slider__thumb-btn
-        img(:src="slide.thumbs").works-slider__thumb
+        img(:src="baseUrl + '/' + slide.photo").works-slider__thumb
 
 script(type="text/x-template")#slider-info
   .works-slider__data
     tags(
-      :tags="tagsArray"
+      :currentWork="currentWork"
+      :tags="tags"
     )
     .works-slider__title {{currentWork.title}}
     .works-slider__desc
-      p {{currentWork.desc}}
+      p {{currentWork.description}}
     .works-slider__link 
       a(:href="currentWork.link" target="_blank").iconed-link Посмотреть сайт
 

@@ -1,4 +1,8 @@
 import Vue from "vue";
+import axios from "axios";
+import config from "../../env.paths.json";
+
+axios.defaults.baseURL = config.BASE_URL;
 
 const btns = {
   template: "#slider-btns"
@@ -6,23 +10,23 @@ const btns = {
 
 const thumbs = {
   template: "#slider-thumbs",
-  props: ["works","currentWork"]
+  props: ["works","currentWork", "baseUrl"]
 };
 
 const tags = {
   template: "#slider-tags",
-  props: ["tags"]
+  props: ["currentWork"],
+  computed: {
+    tags() {
+      return this.currentWork.techs.split(",").map(tag => tag.trim());
+    }
+  },
 };
 
 const info = {
   template: "#slider-info",
   components: { tags },
   props: ["currentWork"],
-  computed: {
-    tagsArray() {
-      return this.currentWork.tag.split(",");
-    }
-  }
 };
 
 const display = {
@@ -31,7 +35,7 @@ const display = {
     btns, 
     thumbs 
   },
-  props: ["currentWork", "works", "currentIndex"]
+  props: ["currentWork", "works", "currentIndex", "baseUrl"]
 };
 
 new Vue({
@@ -44,7 +48,8 @@ new Vue({
   data() {
     return {
       works: [],
-      currentIndex: 0
+      currentIndex: 0,
+      baseUrl: config.BASE_URL,
     }
   },
   computed: {
@@ -58,13 +63,13 @@ new Vue({
     }
   },
   methods: {
-    requireImagesToArray(data) {
-      return data.map(item => {
-        const requiredImage = require(`../images/content/${item.thumbs}`).default;
-        item.thumbs = requiredImage;
-        return item;
-      });
-    },
+    // requireImagesToArray(data) {
+    //   return data.map(item => {
+    //     const requiredImage = require(`../images/content/${item.thumbs}`).default;
+    //     item.thumbs = requiredImage;
+    //     return item;
+    //   });
+    // },
     slide(direction) {
       switch (direction) {
         case "next":
@@ -89,8 +94,13 @@ new Vue({
       }
     }
   },
-  created() {
-    const data = require("../data/works.json");
-    this.works = this.requireImagesToArray(data);
+  // created() {
+  //   const data = require("../data/works.json");
+  //   this.works = this.requireImagesToArray(data);
+  // },
+  async created() {
+    const { data } = await axios.get('/works/375');
+    this.works = data;
+    console.log(this.tagsArray);
   }
 });

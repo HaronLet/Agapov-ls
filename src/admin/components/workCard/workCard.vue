@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     cover() {
-      return `http://localhost:8000/${this.work.photo}`
+      return `https://webdev-api.loftschool.com/${this.work.photo}`
     }
   },
 };
