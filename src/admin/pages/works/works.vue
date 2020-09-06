@@ -31,7 +31,7 @@ export default {
   components: { appForm, workCard },
   computed: {
     ...mapState("works", {
-      works: (state) => state.data,
+      works: (state) => state.data
     }),
   },
   methods: {
