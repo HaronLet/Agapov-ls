@@ -14,7 +14,7 @@
         <ul class="app-skills">
           <li class="app-item" v-if="emptyCatIsShow">
             <category 
-              @remove="emptyCatIsShow = false"
+              @remove="emptyCatIsShow === false"
               @approve="createCategory"
               empty 
             />
@@ -23,9 +23,11 @@
             :key="category.id"
             class="app-item" 
           >
-            <category 
+            <category
               :title="category.category"
               :skills="category.skills"
+              @approve="editCategory($event, category)"
+              @remove="removeCategory(category)"
               @create-skill="createSkill($event, category.id)"
               @edit-skill="editSkill"
               @remove-skill="removeSkill"
@@ -64,6 +66,8 @@
     methods: {
       ...mapActions({
         createCategoryAction: "categories/create",
+        removeCategoryAction: "categories/remove",
+        editCategoryAction: "categories/edit",
         fetchCategoriesAction: "categories/fetch",
         addSkillAction: "skills/add",
         removeSkillAction: "skills/remove",
@@ -89,11 +93,26 @@
       async createCategory(categoryTitle) {
         try {
           await this.createCategoryAction(categoryTitle);
-          this.emptyCatIsShown = false;
+          this.emptyCatIsShow = false;
         } catch (error) {
           console.log(error.message); 
         }
-      }
+      },
+      async removeCategory(category) {
+        try {
+          await this.removeCategoryAction(category);
+          this.emptyCatIsShow = false;
+        } catch (error) {
+          console.log(error.message); 
+        }
+      },
+      async editCategory(categoryTitle, currentCategory) {
+        const newCategory = {
+          ...currentCategory,
+          category: categoryTitle,
+        };
+        await this.editCategoryAction(newCategory);
+      },
     },
     created() {
       this.fetchCategoriesAction();

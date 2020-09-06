@@ -43,7 +43,7 @@
         class="skill-btn"
       />
       <icon
-        @click="currentSkill.editmode = false"
+        @click="resetHendler"
         symbol="cross"
         class="skill-btn"
       />
@@ -91,8 +91,13 @@
       icon
     },
     methods: {
+      resetHendler() {
+        this.currentSkill.editmode = false;
+        this.currentSkill.title = this.skill.title;
+      },
       async handleClick() {
         if (await this.$validate() === false) return;
+        this.$validate().reset;
         this.$emit("approve", this.currentSkill);
       },
     }

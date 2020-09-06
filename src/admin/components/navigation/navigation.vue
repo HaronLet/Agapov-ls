@@ -5,9 +5,9 @@
         <li 
           v-for="link in links"        
           :key="link.id">
-          <a :href="`/${link.alias}`" :class="['link', {active: link.active}]">
+          <router-link active-class="active" exact :to="`/${link.alias}`" class="link">
             {{link.title}}
-          </a>
+          </router-link>
         </li>
       </ul>
     </div>
