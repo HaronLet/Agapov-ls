@@ -14,7 +14,7 @@
           <li class="item">
             <square-btn 
               type="square"
-              title="Добавить работу" 
+              title="Добавить отзыв" 
               
             />
           </li>

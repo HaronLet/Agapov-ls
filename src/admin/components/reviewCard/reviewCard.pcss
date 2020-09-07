@@ -14,14 +14,26 @@
   flex-direction: column;
   font-size: 18px;
   font-weight: bold;
+
+  @include phones {
+    font-size: 16px;
+  }
 }
 
 .username {
   color: #414C63;
+
+  @include phones {
+    margin-bottom: 5px;
+  }
 }
 
 .userocc {
   color: rgba(65, 76, 99, 0.5);
+
+  @include phones {
+    font-size: 14px;
+  }
 }
 
 .review-wrapper {
@@ -35,6 +47,10 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+
+  @include phones {
+    padding: 0;
+  }
 }
 
 .text {

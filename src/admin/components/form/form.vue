@@ -1,7 +1,7 @@
 <template>
   <div class="form-component">
     <form class="form" @submit.prevent="handleSubmit">
-      <card title="Добавление работы">
+      <card title="Редактирование работы">
         <div class="form-container" slot="content">
           <div class="form-cols">
             <div class="form-col">
@@ -16,22 +16,38 @@
               >
                 <div class="uploader-title">Перетащите или загрузите картинку</div>
                 <div class="uploader-btn">
-                  <app-button typeAttr="file" @change="handleChange"></app-button>
+                  <app-button 
+                    @change="handleChange"
+                    :value="`https://webdev-api.loftschool.com/${this.currentWork.photo}`"
+                    typeAttr="file"
+                  />
                 </div>
               </label>
             </div>
             <div class="form-col">
               <div class="form-row">
-                <app-input v-model="newWork.title" title="Название" />
+                <app-input 
+                  v-model="newWork.title"
+                  title="Название"
+                />
               </div>
               <div class="form-row">
-                <app-input v-model="newWork.link" title="Ссылка" />
+                <app-input 
+                  v-model="newWork.link"
+                  title="Ссылка"
+                />
               </div>
               <div class="form-row">
-                <app-input v-model="newWork.description" field-type="textarea" title="Описание" />
+                <app-input 
+                  v-model="newWork.description"
+                  field-type="textarea"
+                  title="Описание"
+                />
               </div>
               <div class="form-row">
-                <tags-adder v-model="newWork.techs" />
+                <tags-adder
+                  v-model="newWork.techs"
+                />
               </div>
             </div>
           </div>
@@ -40,7 +56,18 @@
               <app-button title="Отмена" plain></app-button>
             </div>
             <div class="btn">
-              <app-button title="Сохранить" typeAttr="submit"></app-button>
+              <app-button
+                v-if="editMode"
+                @edit="$emit('edit', $event)"
+                title="Сохранить"
+                typeAttr="submit"
+              />
+              <app-button
+                v-else
+
+                title="Сохранить"
+                typeAttr="submit"
+              />
             </div>
           </div>
         </div>
@@ -71,6 +98,13 @@ export default {
       },
     };
   },
+  props: {
+    currentWork: {
+      type: Object,
+      default: {},
+    },
+    editMode: false,
+  },
   methods: {
     ...mapActions({
       addNewWork: "works/add",
@@ -85,6 +119,8 @@ export default {
     handleChange(event) {
       event.preventDefault();
 
+      console.log(event);
+
       const file = event.dataTransfer 
         ? event.dataTransfer.files[0] 
         : event.target.files[0];
@@ -96,12 +132,24 @@ export default {
     renderPhoto(file) {
       const reader = new FileReader();
 
+      console.log(file);
+
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         this.newWork.preview = reader.result;
       };
+      console.log(reader);
     },
   },
+  created() {
+    if (this.editMode) {
+      this.newWork.title = this.currentWork.title;
+      this.newWork.link = this.currentWork.link;
+      this.newWork.description = this.currentWork.description;
+      this.newWork.techs = this.currentWork.techs;
+      this.newWork.preview = `https://webdev-api.loftschool.com/${this.currentWork.photo}`;
+    };
+  }
 };
 </script>
 

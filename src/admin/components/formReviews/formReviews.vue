@@ -15,7 +15,7 @@
                 @drop="handleChange"
               >
                 <div class="uploader-btn">
-                  <app-button typeAttr="file" @change="handleChange"></app-button>
+                  <app-button typeAttr="plainfile" @change="handleChange" title="Добавить фото"></app-button>
                 </div>
               </label>
             </div>
