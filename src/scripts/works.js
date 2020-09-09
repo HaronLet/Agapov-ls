@@ -15,18 +15,13 @@ const thumbs = {
 
 const tags = {
   template: "#slider-tags",
-  props: ["currentWork"],
-  computed: {
-    tags() {
-      return this.currentWork.techs.split(",").map(tag => tag.trim());
-    }
-  },
+  props: ["currentWork", , "tags"],
 };
 
 const info = {
   template: "#slider-info",
   components: { tags },
-  props: ["currentWork"],
+  props: ["currentWork", "tags"],
 };
 
 const display = {
@@ -55,6 +50,10 @@ new Vue({
   computed: {
     currentWork() {
       return this.works[this.currentIndex];
+    },
+    tags() {
+      console.log(this.currentWork.techs.split(",").map(tag => tag.trim()));
+      return this.currentWork.techs.split(",").map(tag => tag.trim());
     }
   },
   watch: {
