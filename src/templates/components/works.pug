@@ -23,9 +23,7 @@ script(type="text/x-template")#slider-display
         :works="works"
         :currentWork="currentWork"
         :baseUrl="baseUrl"
-        ref="item"
         @slide="$emit('slide', $event)"
-        @currentRefs="$emit('currentRefs', $event)"
       )
 
 script(type="text/x-template")#slider-btns
@@ -33,17 +31,15 @@ script(type="text/x-template")#slider-btns
     button(
       type="button"
       @click="$emit('slide', 'next')"
-      ref="workNextBtn"
     ).works-slider__btn.works-slider__btn_next
     button(
       type="button"
       @click="$emit('slide', 'prev')"
-      ref="workPrevBtn"
     ).works-slider__btn.works-slider__btn_prev
 
 script(type="text/x-template")#slider-thumbs
   .works-slider-wrapper
-    ul(ref="list").works-slider__thumbs
+    ul.works-slider__thumbs
       li(
         v-for="(slide, index) in works" :key="slide.id"
         :class="{active: currentWork.id === slide.id}"
