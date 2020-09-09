@@ -87,6 +87,7 @@ export default {
   methods: {
     ...mapActions({
       addNewReview: "reviews/add",
+      editReviewsAction: "reviews/edit",
     }),
     handleDragOver(e) {
       e.preventDefault();
@@ -94,7 +95,7 @@ export default {
     },
     async handleSubmit(event) {
       if (this.editMode) {
-        await this.$emit("edit", this.newReview);
+        await this.editReviewsAction(this.newReview);
         await this.handleReset();
       } else {
         await this.addNewReview(this.newReview);
@@ -102,12 +103,6 @@ export default {
       }
     },
     handleReset() {
-      this.newReview.photo = {};
-      this.newReview.author = "";
-      this.newReview.occ = "";
-      this.newReview.text = "";
-      this.newReview.preview = "";
-      this.newReview.id = "";
       this.$emit("reset", this.emptyFormIsShow);
     },
     handleChange(event) {

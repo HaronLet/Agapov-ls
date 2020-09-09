@@ -35,13 +35,6 @@ new Vue({
     };
   },
   methods: {
-    // requireImagesToArray(data) {
-    //   return data.map(item => {
-    //     const requiredImage = require(`../images/content/${item.avatar}`).default;
-    //     item.avatar = requiredImage;
-    //     return item;
-    //   });
-    // },
     inactive(ref, slider) {
       if (slider.isEnd) {
         ref.nextBtn.style.opacity = .2;
