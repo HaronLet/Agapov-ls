@@ -123,30 +123,14 @@ export default {
       }
     },
     handleReset() {
-      // this.newWork.title = "";
-      // this.newWork.link = "";
-      // this.newWork.description = "";
-      // this.newWork.techs = "";
-      // this.newWork.preview = "";
-      // this.newWork.photo = {};
-      // this.newWork.id = "";
-      // this.$emit("reset", this.emptyFormIsShow);
-
-      var request = new XMLHttpRequest();
-      request.open('GET', this.newWork.preview, true);
-      request.responseType = 'blob';
-      request.onload = function() {
-        var reader = new FileReader();
-        reader.readAsDataURL(request.response);
-          reader.onload = function(e) {
-            console.log('DataURL:', e.target.result);
-          };
-      };
-      request.send();
-
-    // const a = new File(this.newWork.preview, "foo.jpg");
-    // this.renderPhoto(a);
-    // console.log(a);
+      this.newWork.title = "";
+      this.newWork.link = "";
+      this.newWork.description = "";
+      this.newWork.techs = "";
+      this.newWork.preview = "";
+      this.newWork.photo = {};
+      this.newWork.id = "";
+      this.$emit("reset", this.emptyFormIsShow);
     },
     handleChange(event) {
       event.preventDefault();
