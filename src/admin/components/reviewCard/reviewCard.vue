@@ -13,8 +13,8 @@
           <p>{{review.text}}</p>
         </div>
         <div class="btns">
-          <icon symbol="pencil" title="Править"></icon>
-          <icon symbol="trash" title="Удалить"></icon>
+          <icon symbol="pencil" title="Править" @click="$emit('edit', $event)"></icon>
+          <icon symbol="trash" title="Удалить" @click="$emit('remove', $event)"></icon>
         </div>
       </div>
     </div>

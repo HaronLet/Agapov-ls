@@ -49,11 +49,9 @@ export default {
       }
     },
     async edit({commit}, workToEdit) {
-      // const title = catToEdit.category;
-      console.log(workToEdit);
       try {
-        const { data } = await this.$axios.post(`/works/${workToEdit.id}`, { workToEdit });
-        // commit("EDIT_WORKS", data.category)
+        const { data } = await this.$axios.post(`/works/${workToEdit.id}`, workToEdit);
+        commit("EDIT_WORKS", data.work)
       } catch (error) {
         console.log(error);
         throw new Error("Ошибка")

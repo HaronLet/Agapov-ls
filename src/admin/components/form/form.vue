@@ -1,6 +1,6 @@
 <template>
   <div class="form-component">
-    <form class="form" @submit.prevent="handleSubmit">
+    <form class="form" @submit.prevent="handleSubmit" @reset="handleReset">
       <card title="Редактирование работы">
         <div class="form-container" slot="content">
           <div class="form-cols">
@@ -16,11 +16,7 @@
               >
                 <div class="uploader-title">Перетащите или загрузите картинку</div>
                 <div class="uploader-btn">
-                  <app-button 
-                    @change="handleChange"
-                    :value="`https://webdev-api.loftschool.com/${this.currentWork.photo}`"
-                    typeAttr="file"
-                  />
+                  <app-button typeAttr="file" @change="handleChange"></app-button>
                 </div>
               </label>
             </div>
@@ -53,21 +49,10 @@
           </div>
           <div class="form-btns">
             <div class="btn">
-              <app-button title="Отмена" plain></app-button>
+              <app-button title="Отмена" typeAttr="reset" plain></app-button>
             </div>
             <div class="btn">
-              <app-button
-                v-if="editMode"
-                @edit="$emit('edit', $event)"
-                title="Сохранить"
-                typeAttr="submit"
-              />
-              <app-button
-                v-else
-
-                title="Сохранить"
-                typeAttr="submit"
-              />
+              <app-button title="Сохранить" typeAttr="submit" />
             </div>
           </div>
         </div>
@@ -95,6 +80,7 @@ export default {
         techs: "",
         photo: {},
         preview: "",
+        id: ""
       },
     };
   },
@@ -103,7 +89,21 @@ export default {
       type: Object,
       default: {},
     },
-    editMode: false,
+    editMode: Boolean,
+    emptyFormIsShow: Boolean,
+  },
+  watch: {
+    currentWork() {
+      if (this.editMode) {
+        this.newWork.title = this.currentWork.title;
+        this.newWork.link = this.currentWork.link;
+        this.newWork.description = this.currentWork.description;
+        this.newWork.techs = this.currentWork.techs;
+        this.newWork.preview = `https://webdev-api.loftschool.com/${this.currentWork.photo}`;
+        this.newWork.photo = {};
+        this.newWork.id = this.currentWork.id;
+      };
+    },
   },
   methods: {
     ...mapActions({
@@ -114,12 +114,42 @@ export default {
       this.hovered = true;
     },
     async handleSubmit() {
-      await this.addNewWork(this.newWork);
+      if (this.editMode) {
+        await this.addNewWork(this.newWork);
+        await this.handleReset();
+      } else {
+        await this.addNewWork(this.newWork);
+        await this.handleReset();
+      }
+    },
+    handleReset() {
+      // this.newWork.title = "";
+      // this.newWork.link = "";
+      // this.newWork.description = "";
+      // this.newWork.techs = "";
+      // this.newWork.preview = "";
+      // this.newWork.photo = {};
+      // this.newWork.id = "";
+      // this.$emit("reset", this.emptyFormIsShow);
+
+      var request = new XMLHttpRequest();
+      request.open('GET', this.newWork.preview, true);
+      request.responseType = 'blob';
+      request.onload = function() {
+        var reader = new FileReader();
+        reader.readAsDataURL(request.response);
+          reader.onload = function(e) {
+            console.log('DataURL:', e.target.result);
+          };
+      };
+      request.send();
+
+    // const a = new File(this.newWork.preview, "foo.jpg");
+    // this.renderPhoto(a);
+    // console.log(a);
     },
     handleChange(event) {
       event.preventDefault();
-
-      console.log(event);
 
       const file = event.dataTransfer 
         ? event.dataTransfer.files[0] 
@@ -132,13 +162,10 @@ export default {
     renderPhoto(file) {
       const reader = new FileReader();
 
-      console.log(file);
-
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         this.newWork.preview = reader.result;
       };
-      console.log(reader);
     },
   },
   created() {
@@ -148,6 +175,8 @@ export default {
       this.newWork.description = this.currentWork.description;
       this.newWork.techs = this.currentWork.techs;
       this.newWork.preview = `https://webdev-api.loftschool.com/${this.currentWork.photo}`;
+      this.newWork.photo = {};
+      this.newWork.id = this.currentWork.id;
     };
   }
 };

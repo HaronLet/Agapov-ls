@@ -11,6 +11,7 @@
           <app-form 
             @add="addWork"
             @edit="editWork(work)"
+            @reset="FormIsShow"
             :currentWork="currentWork"
             :editMode="editMode"
           />
@@ -64,6 +65,9 @@ export default {
     }),
     addWork() {
       this.emptyFormIsShow = false;
+    },
+    FormIsShow(e) {
+      this.emptyFormIsShow = e;
     },
     async editWork(work) {
       console.log("edit",work);

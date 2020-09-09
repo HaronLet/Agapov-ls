@@ -10,7 +10,12 @@ const btns = {
 
 const thumbs = {
   template: "#slider-thumbs",
-  props: ["works","currentWork", "baseUrl"]
+  props: ["works", "currentWork", "baseUrl", "currentRefs"],
+  // methods: {
+  //   currentRefs() {
+  //     return this.$refs;
+  //   }
+  // }
 };
 
 const tags = {
@@ -71,6 +76,12 @@ new Vue({
     //   });
     // },
     slide(direction) {
+      const ref = this.$li;
+      console.log(ref);
+
+      // const widthItem = ref.item.style.width;
+
+
       switch (direction) {
         case "next":
           this.currentIndex++;
@@ -101,6 +112,5 @@ new Vue({
   async created() {
     const { data } = await axios.get('/works/375');
     this.works = data;
-    console.log(this.tagsArray);
   }
 });

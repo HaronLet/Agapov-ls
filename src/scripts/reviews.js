@@ -1,4 +1,8 @@
 import Vue from "vue";
+import axios from "axios";
+import config from "../../env.paths.json";
+
+axios.defaults.baseURL = config.BASE_URL;
 
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
 import 'swiper/swiper-bundle.css'
@@ -26,17 +30,18 @@ new Vue({
             spaceBetween: 10
           }
         }
-      }
+      },
+      baseUrl: config.BASE_URL,
     };
   },
   methods: {
-    requireImagesToArray(data) {
-      return data.map(item => {
-        const requiredImage = require(`../images/content/${item.avatar}`).default;
-        item.avatar = requiredImage;
-        return item;
-      });
-    },
+    // requireImagesToArray(data) {
+    //   return data.map(item => {
+    //     const requiredImage = require(`../images/content/${item.avatar}`).default;
+    //     item.avatar = requiredImage;
+    //     return item;
+    //   });
+    // },
     inactive(ref, slider) {
       if (slider.isEnd) {
         ref.nextBtn.style.opacity = .2;
@@ -70,13 +75,13 @@ new Vue({
       }
     }
   },
-  created() {
-    const data = require("../data/reviews.json");
-    this.reviews = this.requireImagesToArray(data);
+  async created() {
+    const { data } = await axios.get('/reviews/375');
+    this.reviews = data;
   },
   mounted() {
     var ref = this.$refs;
-    
+
     ref.prevBtn.style.opacity = .2;
     ref.prevBtn.style.cursor = 'initial';
   }

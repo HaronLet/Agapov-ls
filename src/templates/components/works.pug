@@ -9,6 +9,7 @@ script(type="text/x-template")#slider-container
     )
     info(
       :currentWork="currentWork"
+      :tags="tags"
     )
 
 script(type="text/x-template")#slider-display
@@ -22,7 +23,9 @@ script(type="text/x-template")#slider-display
         :works="works"
         :currentWork="currentWork"
         :baseUrl="baseUrl"
+        ref="item"
         @slide="$emit('slide', $event)"
+        @currentRefs="$emit('currentRefs', $event)"
       )
 
 script(type="text/x-template")#slider-btns
@@ -39,13 +42,14 @@ script(type="text/x-template")#slider-btns
     ).works-slider__btn.works-slider__btn_prev
 
 script(type="text/x-template")#slider-thumbs
-  ul.works-slider__thumbs
-    li.works-slider__thumb-item(
-      v-for="(slide, index) in works" :key="slide.id"
-      :class="{active: currentWork.id === slide.id}"
-      )
-      button(@click="$emit('slide', index)").works-slider__thumb-btn
-        img(:src="baseUrl + '/' + slide.photo").works-slider__thumb
+  .works-slider-wrapper
+    ul(ref="list").works-slider__thumbs
+      li(
+        v-for="(slide, index) in works" :key="slide.id"
+        :class="{active: currentWork.id === slide.id}"
+      ).works-slider__thumb-item
+        button(@click="$emit('slide', index)").works-slider__thumb-btn
+          img(:src="baseUrl + '/' + slide.photo").works-slider__thumb
 
 script(type="text/x-template")#slider-info
   .works-slider__data

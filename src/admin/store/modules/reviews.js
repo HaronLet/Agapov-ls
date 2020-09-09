@@ -9,7 +9,20 @@ export default {
     },
     SET_REVIEWS(state, reviews) {
       state.data = reviews;
-    }
+    },
+    REMOVE_REVIEWS: (state, reviews) => {
+      state.data = state.data.filter(review => review.id !== reviews.id);
+    },
+    EDIT_REVIEWS: (state, reviews) => {
+      const findreview = review => {
+        if (review.id === reviews.id) {
+          return reviews;
+        }
+  
+        return review;
+      }
+      state.data = state.data.map(findreview);
+    },
   },
   actions: {
     async add({ commit }, newReviews) {
@@ -28,7 +41,25 @@ export default {
         console.log("error");
       }
     },
-
+    async remove({commit}, reviewToRemove) {
+      console.log(reviewToRemove);
+      try {
+        const { data } = await this.$axios.delete(`/reviews/${reviewToRemove.id}`);
+        commit("REMOVE_REVIEWS", reviewToRemove)
+      } catch (error) {
+        console.log(error);
+        throw new Error("Ошибка")
+      }
+    },
+    async edit({commit}, reviewToEdit) {
+      try {
+        const { data } = await this.$axios.post(`/reviews/${reviewToEdit.id}`, reviewToEdit);
+        commit("EDIT_REVIEWS", data.review)
+      } catch (error) {
+        console.log(error);
+        throw new Error("Ошибка")
+      }
+    },
     async fetch({commit}) {
       try {
         const { data } = await this.$axios.get("/reviews/375");

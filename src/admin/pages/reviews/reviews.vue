@@ -7,20 +7,27 @@
             Блок "Отзывы"
           </div>
         </div>
-        <div class="form">
-          <app-form-reviews />
+        <div class="form" v-if="emptyFormIsShow">
+          <app-form-reviews
+            @edit="editReview"
+            @reset="FormIsShow"
+            :currentReview="currentReview"
+            :editMode="editMode"
+          />
         </div>
         <ul class="cards">
           <li class="item">
             <square-btn 
               type="square"
               title="Добавить отзыв" 
-              
+              @click="emptyFormIsShow = true"
             />
           </li>
           <li class="item" v-for="review in reviews" :key="review.id">
             <review-card
               :review="review"
+              @edit="editReviewCard(review)"
+              @remove="removeReview(review)"
             />
           </li>
         </ul>
@@ -37,6 +44,13 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   components: { appFormReviews, reviewCard, squareBtn },
+  data() {
+    return {
+      emptyFormIsShow: false,
+      editMode: false,
+      currentReview: {},
+    }
+  },
   computed: {
     ...mapState("reviews", {
       reviews: (state) => state.data,
@@ -44,8 +58,25 @@ export default {
   },
   methods: {
     ...mapActions({
+      editReviewsAction: "reviews/edit",
+      removeReviewsAction: "reviews/remove",
       fetchReviews: "reviews/fetch"
     }),
+    FormIsShow(e) {
+      this.emptyFormIsShow = e;
+      this.editMode = false;
+    },
+    async editReview(review) {
+      await this.editReviewsAction(review);
+    },
+    editReviewCard(review) {
+      this.emptyFormIsShow = true;
+      this.editMode = true;
+      this.currentReview = review;
+    },
+    async removeReview(review) {
+      await this.removeReviewsAction(review);
+    },
   },
   mounted() {
     this.fetchReviews();
