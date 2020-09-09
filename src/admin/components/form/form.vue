@@ -100,7 +100,7 @@ export default {
         this.newWork.description = this.currentWork.description;
         this.newWork.techs = this.currentWork.techs;
         this.newWork.preview = `https://webdev-api.loftschool.com/${this.currentWork.photo}`;
-        this.newWork.photo = {};
+        this.newWork.photo = this.currentWork.photo;
         this.newWork.id = this.currentWork.id;
       };
     },
@@ -159,7 +159,7 @@ export default {
       this.newWork.description = this.currentWork.description;
       this.newWork.techs = this.currentWork.techs;
       this.newWork.preview = `https://webdev-api.loftschool.com/${this.currentWork.photo}`;
-      this.newWork.photo = {};
+      this.newWork.photo = this.currentWork.photo;
       this.newWork.id = this.currentWork.id;
     };
   }

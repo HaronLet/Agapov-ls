@@ -15,31 +15,30 @@ const thumbs = {
 
 const tags = {
   template: "#slider-tags",
-  props: ["currentWork", , "tags"],
+  props: ["currentWork"],
+  computed: {
+    tags() {
+      return this.currentWork.techs.split(",").map(tag => tag.trim());
+    },
+  },
 };
 
 const info = {
   template: "#slider-info",
   components: { tags },
-  props: ["currentWork", "tags"],
+  props: ["currentWork"],
 };
 
 const display = {
   template: "#slider-display",
-  components: {
-    btns, 
-    thumbs 
-  },
+  components: { btns, thumbs },
   props: ["currentWork", "works", "currentIndex", "baseUrl"]
 };
 
 new Vue({
   el: "#work-slider-component",
   template: "#slider-container",
-  components: {
-    display,
-    info
-  },
+  components: { display, info },
   data() {
     return {
       works: [],
@@ -51,10 +50,6 @@ new Vue({
     currentWork() {
       return this.works[this.currentIndex];
     },
-    tags() {
-      console.log(this.currentWork.techs.split(",").map(tag => tag.trim()));
-      return this.currentWork.techs.split(",").map(tag => tag.trim());
-    }
   },
   watch: {
     currentIndex(value) {
@@ -63,11 +58,17 @@ new Vue({
   },
   methods: {
     slide(direction) {
+      const lastItem = this.works[this.works.length - 1];
+
       switch (direction) {
         case "next":
+          this.works.push(this.works[0]);
+          this.works.shift();
           this.currentIndex++;
           break;
         case "prev":
+          this.works.unshift(lastItem);
+          this.works.pop();
           this.currentIndex--;
           break;
         default:
@@ -79,12 +80,12 @@ new Vue({
       const worksNumber = this.works.length - 1;
       
       if (value < 0) {
-        this.currentIndex = 0;
-      }
-      if (value > worksNumber) {
         this.currentIndex = worksNumber;
       }
-    }
+      if (value > worksNumber) {
+        this.currentIndex = 0;
+      }
+    },
   },
   async created() {
     const { data } = await axios.get('/works/375');

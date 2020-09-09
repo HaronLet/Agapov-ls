@@ -9,13 +9,12 @@ script(type="text/x-template")#slider-container
     )
     info(
       :currentWork="currentWork"
-      :tags="tags"
     )
 
 script(type="text/x-template")#slider-display
   .works-slider__pics(:data-slide="currentIndex + 1")
     .works-slider__pics-content
-      img(:src="baseUrl + '/' + currentWork.photo").works-slider__fullpic
+      img(:src="`${baseUrl}/${works[0].photo}`").works-slider__fullpic
       btns(
         @slide="$emit('slide', $event)"
       )
@@ -42,16 +41,15 @@ script(type="text/x-template")#slider-thumbs
     ul.works-slider__thumbs
       li(
         v-for="(slide, index) in works" :key="slide.id"
-        :class="{active: currentWork.id === slide.id}"
+        :class="{active: index === 0}"
       ).works-slider__thumb-item
         button(@click="$emit('slide', index)").works-slider__thumb-btn
-          img(:src="baseUrl + '/' + slide.photo").works-slider__thumb
+          img(:src="`${baseUrl}/${slide.photo}`").works-slider__thumb
 
 script(type="text/x-template")#slider-info
   .works-slider__data
     tags(
       :currentWork="currentWork"
-      :tags="tags"
     )
     .works-slider__title {{currentWork.title}}
     .works-slider__desc

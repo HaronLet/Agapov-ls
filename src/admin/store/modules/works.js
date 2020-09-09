@@ -30,7 +30,7 @@ export default {
       
       Object.keys(newWork).forEach(item => {
         formData.append(item, newWork[item]);
-      })
+      });
 
       try {
         const { data } = await this.$axios.post("/works", formData);
@@ -49,8 +49,15 @@ export default {
       }
     },
     async edit({commit}, workToEdit) {
+      const formData = new FormData();
+      
+      Object.keys(workToEdit).forEach(item => {
+        formData.append(item, workToEdit[item]);
+      });
+      console.log(formData);
+
       try {
-        const { data } = await this.$axios.post(`/works/${workToEdit.id}`, workToEdit);
+        const { data } = await this.$axios.post(`/works/${workToEdit.id}`, formData);
         commit("EDIT_WORKS", data.work)
       } catch (error) {
         console.log(error);
