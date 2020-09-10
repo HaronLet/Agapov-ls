@@ -48,7 +48,7 @@ new Vue({
   },
   computed: {
     currentWork() {
-      return this.works[this.currentIndex];
+      return this.works[0];
     },
   },
   watch: {
