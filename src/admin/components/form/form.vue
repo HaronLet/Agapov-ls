@@ -16,25 +16,32 @@
               >
                 <div class="uploader-title">Перетащите или загрузите картинку</div>
                 <div class="uploader-btn">
-                  <app-button typeAttr="file" @change="handleChange"></app-button>
+                  <app-button
+                    :errorMessage="validation.firstError('newWork.photo')"
+                    @change="handleChange"
+                    typeAttr="file"
+                  ></app-button>
                 </div>
               </label>
             </div>
             <div class="form-col">
               <div class="form-row">
-                <app-input 
+                <app-input
+                  :errorMessage="validation.firstError('newWork.title')"
                   v-model="newWork.title"
                   title="Название"
                 />
               </div>
               <div class="form-row">
-                <app-input 
+                <app-input
+                  :errorMessage="validation.firstError('newWork.link')"
                   v-model="newWork.link"
                   title="Ссылка"
                 />
               </div>
               <div class="form-row">
-                <app-input 
+                <app-input
+                  :errorMessage="validation.firstError('newWork.description')"
                   v-model="newWork.description"
                   field-type="textarea"
                   title="Описание"
@@ -42,6 +49,7 @@
               </div>
               <div class="form-row">
                 <tags-adder
+                  :errorMessage="validation.firstError('newWork.techs')"
                   v-model="newWork.techs"
                 />
               </div>
@@ -67,6 +75,7 @@ import appButton from "../button";
 import appInput from "../input";
 import tagsAdder from "../tagsAdder";
 import { mapActions } from "vuex";
+import { Validator, mixin as ValidatorMixin } from "simple-vue-validator";
 
 export default {
   components: { card, appButton, appInput, tagsAdder },
@@ -92,6 +101,24 @@ export default {
     editMode: Boolean,
     emptyFormIsShow: Boolean,
   },
+  mixins: [ValidatorMixin],
+  validators: {
+    "newWork.title": (value) => {
+      return Validator.value(value).required("Не может быть пустым");
+    },
+    "newWork.link": (value) => {
+      return Validator.value(value).required("Не может быть пустым");
+    },
+    "newWork.description": (value) => {
+      return Validator.value(value).required("Не может быть пустым");
+    },
+    "newWork.techs": (value) => {
+      return Validator.value(value).required("Не может быть пустым");
+    },
+    "newWork.photo": (value) => {
+      return Validator.value(value).required("Не может быть пустым");
+    },
+  },
   watch: {
     currentWork() {
       if (this.editMode) {
@@ -107,6 +134,7 @@ export default {
   },
   methods: {
     ...mapActions({
+      editWorksAction: "works/edit",
       addNewWork: "works/add",
     }),
     handleDragOver(e) {
@@ -114,8 +142,11 @@ export default {
       this.hovered = true;
     },
     async handleSubmit() {
+      if (await this.$validate() === false) return;
+      this.$validate().reset;
+
       if (this.editMode) {
-        await this.addNewWork(this.newWork);
+        await this.editWorksAction(this.newWork);
         await this.handleReset();
       } else {
         await this.addNewWork(this.newWork);
@@ -123,13 +154,6 @@ export default {
       }
     },
     handleReset() {
-      this.newWork.title = "";
-      this.newWork.link = "";
-      this.newWork.description = "";
-      this.newWork.techs = "";
-      this.newWork.preview = "";
-      this.newWork.photo = {};
-      this.newWork.id = "";
       this.$emit("reset", this.emptyFormIsShow);
     },
     handleChange(event) {
@@ -159,7 +183,7 @@ export default {
       this.newWork.description = this.currentWork.description;
       this.newWork.techs = this.currentWork.techs;
       this.newWork.preview = `https://webdev-api.loftschool.com/${this.currentWork.photo}`;
-      this.newWork.photo = this.currentWork.photo;
+      this.newWork.photo = {};
       this.newWork.id = this.currentWork.id;
     };
   }

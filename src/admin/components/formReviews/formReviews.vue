@@ -15,17 +15,38 @@
                 @drop="handleChange"
               >
                 <div class="uploader-btn">
-                  <app-button typeAttr="plainfile" @change="handleChange" title="Добавить фото"></app-button>
+                  <app-button
+                    :errorMessage="validation.firstError('newReview.photo')"
+                    @change="handleChange"
+                    typeAttr="plainfile"
+                    title="Добавить фото"
+                  ></app-button>
                 </div>
               </label>
             </div>
             <div class="form-text">
               <div class="form-row">
-                <app-input class="autor" v-model="newReview.author" title="Имя автора" />
-                <app-input class="autor" v-model="newReview.occ" title="Титул автора" />
+                <app-input
+                  :errorMessage="validation.firstError('newReview.author')"
+                  class="autor"
+                  v-model="newReview.author"
+                  title="Имя автора"
+                />
+                <app-input
+                  :errorMessage="validation.firstError('newReview.occ')"
+                  class="autor"
+                  v-model="newReview.occ"
+                  title="Титул автора"
+                />
               </div>
               <div class="form-row">
-                <app-input class="textarea" v-model="newReview.text" field-type="textarea" title="Отзыв" />
+                <app-input
+                  :errorMessage="validation.firstError('newReview.text')"
+                  class="textarea"
+                  v-model="newReview.text"
+                  field-type="textarea"
+                  title="Отзыв"
+                />
               </div>
             </div>
           </div>
@@ -48,6 +69,7 @@ import card from "../card";
 import appButton from "../button";
 import appInput from "../input";
 import { mapActions } from "vuex";
+import { Validator, mixin as ValidatorMixin } from "simple-vue-validator";
 
 export default {
   components: { card, appButton, appInput },
@@ -72,6 +94,21 @@ export default {
     editMode: Boolean,
     emptyFormIsShow: Boolean,
   },
+  mixins: [ValidatorMixin],
+  validators: {
+    "newReview.author": (value) => {
+      return Validator.value(value).required("Не может быть пустым");
+    },
+    "newReview.occ": (value) => {
+      return Validator.value(value).required("Не может быть пустым");
+    },
+    "newReview.text": (value) => {
+      return Validator.value(value).required("Не может быть пустым");
+    },
+    "newReview.photo": (value) => {
+      return Validator.value(value).required("Не может быть пустым");
+    },
+  },
   watch: {
     currentReview() {
       if (this.editMode) {
@@ -94,6 +131,9 @@ export default {
       this.hovered = true;
     },
     async handleSubmit(event) {
+      if (await this.$validate() === false) return;
+      this.$validate().reset;
+      
       if (this.editMode) {
         await this.editReviewsAction(this.newReview);
         await this.handleReset();

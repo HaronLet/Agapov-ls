@@ -9,7 +9,6 @@
         </div>
         <div class="form" v-if="emptyFormIsShow">
           <app-form-reviews
-            @edit="editReview"
             @reset="FormIsShow"
             :currentReview="currentReview"
             :editMode="editMode"
@@ -58,16 +57,12 @@ export default {
   },
   methods: {
     ...mapActions({
-      editReviewsAction: "reviews/edit",
       removeReviewsAction: "reviews/remove",
       fetchReviews: "reviews/fetch"
     }),
     FormIsShow(e) {
       this.emptyFormIsShow = e;
       this.editMode = false;
-    },
-    async editReview(review) {
-      await this.editReviewsAction(review);
     },
     editReviewCard(review) {
       this.emptyFormIsShow = true;

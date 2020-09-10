@@ -9,8 +9,6 @@
         </div>
         <div class="form" v-if="emptyFormIsShow">
           <app-form 
-            @add="addWork"
-            @edit="editWork(work)"
             @reset="FormIsShow"
             :currentWork="currentWork"
             :editMode="editMode"
@@ -59,7 +57,6 @@ export default {
   },
   methods: {
     ...mapActions({
-      editWorksAction: "works/edit",
       removeWorksAction: "works/remove",
       fetchWorks: "works/fetch"
     }),
@@ -68,13 +65,9 @@ export default {
     },
     FormIsShow(e) {
       this.emptyFormIsShow = e;
-    },
-    async editWork(work) {
-      console.log("edit",work);
-      await this.editWorksAction(work);
+      this.editMode = false;
     },
     async editWorkCard(work) {
-      console.log(work);
       this.emptyFormIsShow = true;
       this.editMode = true;
       this.currentWork = work;
