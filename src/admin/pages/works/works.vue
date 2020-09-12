@@ -58,7 +58,8 @@ export default {
   methods: {
     ...mapActions({
       removeWorksAction: "works/remove",
-      fetchWorks: "works/fetch"
+      fetchWorks: "works/fetch",
+      showTooltip: "tooltips/show",
     }),
     addWork() {
       this.emptyFormIsShow = false;
@@ -74,6 +75,9 @@ export default {
     },
     async removeWork(work) {
       await this.removeWorksAction(work);
+      this.showTooltip({
+        text: "Работа удалёна",
+      });
     },
   },
   mounted() {

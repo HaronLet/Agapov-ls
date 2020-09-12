@@ -136,6 +136,7 @@ export default {
     ...mapActions({
       editWorksAction: "works/edit",
       addNewWork: "works/add",
+      showTooltip: "tooltips/show",
     }),
     handleDragOver(e) {
       e.preventDefault();
@@ -145,12 +146,25 @@ export default {
       if (await this.$validate() === false) return;
       this.$validate().reset;
 
-      if (this.editMode) {
-        await this.editWorksAction(this.newWork);
-        await this.handleReset();
-      } else {
-        await this.addNewWork(this.newWork);
-        await this.handleReset();
+      try {
+        if (this.editMode) {
+          await this.editWorksAction(this.newWork);
+          await this.handleReset();
+          this.showTooltip({
+            text: "Работа изменена",
+          });
+        } else {
+          await this.addNewWork(this.newWork);
+          await this.handleReset();
+          this.showTooltip({
+            text: "Работа добавлена",
+          });
+        }
+      } catch (error) {
+        this.showTooltip({
+          text: error.response.data.error,
+          type: "error"
+        })
       }
     },
     handleReset() {

@@ -125,6 +125,7 @@ export default {
     ...mapActions({
       addNewReview: "reviews/add",
       editReviewsAction: "reviews/edit",
+      showTooltip: "tooltips/show",
     }),
     handleDragOver(e) {
       e.preventDefault();
@@ -133,13 +134,26 @@ export default {
     async handleSubmit(event) {
       if (await this.$validate() === false) return;
       this.$validate().reset;
-      
-      if (this.editMode) {
-        await this.editReviewsAction(this.newReview);
-        await this.handleReset();
-      } else {
-        await this.addNewReview(this.newReview);
-        await this.handleReset();
+
+      try {
+        if (this.editMode) {
+          await this.editReviewsAction(this.newReview);
+          await this.handleReset();
+          this.showTooltip({
+            text: "Отзыв изменён",
+          });
+        } else {
+          await this.addNewReview(this.newReview);
+          await this.handleReset();
+          this.showTooltip({
+            text: "Отзыв добавлен",
+          });
+        }
+      } catch (error) {
+        this.showTooltip({
+          text: error.response.data.error,
+          type: "error"
+        })
       }
     },
     handleReset() {

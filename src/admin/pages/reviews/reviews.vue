@@ -58,7 +58,8 @@ export default {
   methods: {
     ...mapActions({
       removeReviewsAction: "reviews/remove",
-      fetchReviews: "reviews/fetch"
+      fetchReviews: "reviews/fetch",
+      showTooltip: "tooltips/show",
     }),
     FormIsShow(e) {
       this.emptyFormIsShow = e;
@@ -71,6 +72,9 @@ export default {
     },
     async removeReview(review) {
       await this.removeReviewsAction(review);
+      this.showTooltip({
+        text: "Отзыв удалён",
+      });
     },
   },
   mounted() {
