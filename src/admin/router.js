@@ -53,8 +53,8 @@ router.beforeEach(async (to, from, next) => {
   const isPublicRoute = to.matched.some(route => route.meta.public);
   const isUserLoggedIn = store.getters["user/userIsLoggedIn"];
 
-  next();
-  return;
+  // next();
+  // return;
 
   if (isPublicRoute === false && isUserLoggedIn === false) {
     const token = localStorage.getItem("token");
