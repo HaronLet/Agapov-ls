@@ -7,9 +7,7 @@ export default {
     SET_CATEGORIES: (state, categories) => (state.data = categories),
     ADD_CATEGORY: (state, category) => state.data.unshift(category),
     REMOVE_CATEGORY: (state, catToRemove) => {
-      console.log(catToRemove);
       state.data = state.data.filter(category => category.id !== catToRemove.id)
-      console.log(state.data);
     },
     EDIT_CATEGORY: (state, catToEdit) => {
       const findCategory = category => {

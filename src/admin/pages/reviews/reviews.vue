@@ -1,16 +1,16 @@
 <template>
-  <div class="works-page-component page-component">
+  <div class="reviews-page-component page-component">
     <div class="page-content">
       <div class="container">
         <div class="page-header">
           <div class="page-title">
-            Блок "Работы"
+            Блок "Отзывы"
           </div>
         </div>
         <div class="form" v-if="emptyFormIsShow">
-          <app-form 
+          <app-form-reviews
             @reset="FormIsShow"
-            :currentWork="currentWork"
+            :currentReview="currentReview"
             :editMode="editMode"
           />
         </div>
@@ -18,15 +18,15 @@
           <li class="item">
             <square-btn 
               type="square"
-              title="Добавить работу" 
+              title="Добавить отзыв" 
               @click="emptyFormIsShow = true"
             />
           </li>
-          <li class="item" v-for="work in works" :key="work.id">
-            <work-card
-              :work="work"
-              @edit="editWorkCard(work)"
-              @remove="removeWork(work)"
+          <li class="item" v-for="review in reviews" :key="review.id">
+            <review-card
+              :review="review"
+              @edit="editReviewCard(review)"
+              @remove="removeReview(review)"
             />
           </li>
         </ul>
@@ -36,54 +36,51 @@
 </template>
 
 <script>
-import appForm from "../../components/form";
-import workCard from "../../components/workCard";
+import appFormReviews from "../../components/formReviews";
+import reviewCard from "../../components/reviewCard";
 import squareBtn from "../../components/button";
 import { mapState, mapActions } from "vuex";
 
 export default {
-  components: { appForm, workCard, squareBtn },
+  components: { appFormReviews, reviewCard, squareBtn },
   data() {
     return {
       emptyFormIsShow: false,
       editMode: false,
-      currentWork: {},
+      currentReview: {},
     }
   },
   computed: {
-    ...mapState("works", {
-      works: (state) => state.data,
+    ...mapState("reviews", {
+      reviews: (state) => state.data,
     }),
   },
   methods: {
     ...mapActions({
-      removeWorksAction: "works/remove",
-      fetchWorks: "works/fetch",
+      removeReviewsAction: "reviews/remove",
+      fetchReviews: "reviews/fetch",
       showTooltip: "tooltips/show",
     }),
-    addWork() {
-      this.emptyFormIsShow = false;
-    },
     FormIsShow(e) {
       this.emptyFormIsShow = e;
       this.editMode = false;
     },
-    async editWorkCard(work) {
+    editReviewCard(review) {
       this.emptyFormIsShow = true;
       this.editMode = true;
-      this.currentWork = work;
+      this.currentReview = review;
     },
-    async removeWork(work) {
-      await this.removeWorksAction(work);
+    async removeReview(review) {
+      await this.removeReviewsAction(review);
       this.showTooltip({
-        text: "Работа удалёна",
+        text: "Отзыв удалён",
       });
     },
   },
   mounted() {
-    this.fetchWorks();
+    this.fetchReviews();
   }
 };
 </script>
 
-<style scoped lang="postcss" src="./works.pcss"></style>
+<style scoped lang="postcss" src="./reviews.pcss"></style>

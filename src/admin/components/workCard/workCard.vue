@@ -14,8 +14,8 @@
         </div>
         <a :href="work.link" class="link">{{work.link}}</a>
         <div class="btns">
-          <icon symbol="pencil" title="Править"></icon>
-          <icon symbol="trash" title="Удалить"></icon>
+          <icon symbol="pencil" title="Править" @click="$emit('edit', $event)"></icon>
+          <icon symbol="trash" title="Удалить" @click="$emit('remove', $event)"></icon>
         </div>
       </div>
     </div>
@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     cover() {
-      return `http://localhost:8000/${this.work.photo}`
+      return `https://webdev-api.loftschool.com/${this.work.photo}`
     }
   },
 };

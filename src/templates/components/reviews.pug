@@ -14,7 +14,7 @@ script(type="text/x-template")#reviews
             .user-min
               .user-min__avatar
                 .user-min__pic-wrapper
-                  img(:src="review.avatar").user-min__avatar-pic
+                  img(:src="baseUrl + '/' + review.photo").user-min__avatar-pic
               .user-min__info
-                .user-min__name {{review.name}}
+                .user-min__name {{review.author}}
                 .user-min__occ {{review.occ}}

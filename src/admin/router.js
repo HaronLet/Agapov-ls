@@ -28,6 +28,13 @@ const routes = [
     },
   },
   {
+    path: "/reviews",
+    components: {
+      default: () => import("./pages/reviews"),
+      header: () => import("./components/header")
+    },
+  },
+  {
     path: "/login",
     component: () => import("./pages/login"),
     meta: {
@@ -45,6 +52,9 @@ const guard = axios.create({
 router.beforeEach(async (to, from, next) => {
   const isPublicRoute = to.matched.some(route => route.meta.public);
   const isUserLoggedIn = store.getters["user/userIsLoggedIn"];
+
+  // next();
+  // return;
 
   if (isPublicRoute === false && isUserLoggedIn === false) {
     const token = localStorage.getItem("token");

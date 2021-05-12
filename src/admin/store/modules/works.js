@@ -8,8 +8,21 @@ export default {
       state.data.push(newWork);
     },
     SET_WORKS(state, works) {
-      state.data = works
-    }
+      state.data = works;
+    },
+    REMOVE_WORKS: (state, works) => {
+      state.data = state.data.filter(work => work.id !== works.id);
+    },
+    EDIT_WORKS: (state, works) => {
+      const findWork = work => {
+        if (work.id === works.id) {
+          return works;;
+        }
+
+        return work;
+      }
+      state.data = state.data.map(findWork);
+    },
   },
   actions: {
     async add({ commit }, newWork) {
@@ -17,7 +30,7 @@ export default {
       
       Object.keys(newWork).forEach(item => {
         formData.append(item, newWork[item]);
-      })
+      });
 
       try {
         const { data } = await this.$axios.post("/works", formData);
@@ -26,7 +39,31 @@ export default {
         console.log("error");
       }
     },
+    async remove({commit}, workToRemove) {
+      try {
+        const { data } = await this.$axios.delete(`/works/${workToRemove.id}`);
+        commit("REMOVE_WORKS", workToRemove)
+      } catch (error) {
+        console.log(error);
+        throw new Error("Ошибка")
+      }
+    },
+    async edit({commit}, workToEdit) {
+      const formData = new FormData();
+      
+      Object.keys(workToEdit).forEach(item => {
+        formData.append(item, workToEdit[item]);
+      });
+      console.log(formData);
 
+      try {
+        const { data } = await this.$axios.post(`/works/${workToEdit.id}`, formData);
+        commit("EDIT_WORKS", data.work)
+      } catch (error) {
+        console.log(error);
+        throw new Error("Ошибка")
+      }
+    },
     async fetch({commit}) {
       try {
         const { data } = await this.$axios.get("/works/375");
